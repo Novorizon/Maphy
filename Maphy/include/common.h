@@ -1,8 +1,10 @@
 #pragma once
 #include "fix.h"
-#include "fix2.h"
-#include "fix3.h"
-#include "fix4.h"
+//#include "fix2.h"
+//#include "fix3.h"
+//#include "fix4.h"
+//#include "fix3x3.h"
+//#include "trigonometric.h"
 
 //64bit -9223372036854775808 - 9223372036854775807
 //48bit -281474976710656 - 281474976710657 :4294967296

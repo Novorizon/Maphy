@@ -62,7 +62,7 @@ namespace Mathematica
 			case 1:
 				return c1;
 				break;
-			case2:
+			case 2:
 				return c2;
 				break;
 			case 3:

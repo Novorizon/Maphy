@@ -135,10 +135,17 @@
     <ClInclude Include="include\fix3x3.h" />
     <ClInclude Include="include\fix4.h" />
     <ClInclude Include="include\fix4x4.h" />
+    <ClInclude Include="include\LUT\AcosLut.h" />
+    <ClInclude Include="include\LUT\AsinLut.h" />
+    <ClInclude Include="include\LUT\SinCosLut.h" />
+    <ClInclude Include="include\LUT\SinLut.h" />
+    <ClInclude Include="include\LUT\TanLut.h" />
     <ClInclude Include="include\math.h" />
     <ClInclude Include="include\quaternion.h" />
+    <ClInclude Include="include\Trigonometric.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="src\fix.cpp" />
     <ClCompile Include="src\fix2.cpp" />
     <ClCompile Include="src\fix3.cpp" />
@@ -147,6 +154,7 @@
     <ClCompile Include="src\fix4x4.cpp" />
     <ClCompile Include="src\math.cpp" />
     <ClCompile Include="src\quaternion.cpp" />
+    <ClCompile Include="src\Trigonometric.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

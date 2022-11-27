@@ -132,8 +132,8 @@ namespace Mathematica
 
 		friend fix3 operator *(quaternion q, fix3 v)
 		{
-			fix3 t = _2 * math::cross(q.value.xyz(), v);
-			return v + q.value.w * t + math::cross(q.value.xyz(), t);
+			fix3 t = _2 * math::cross(q.xyz(), v);
+			return v + q.value.w * t + math::cross(q.xyz(), t);
 		}
 
 		friend bool operator ==(quaternion a, quaternion b) { return a.value.x == b.value.x && a.value.y == b.value.y && a.value.z == b.value.z && a.value.w == b.value.w; }
@@ -149,7 +149,7 @@ namespace Mathematica
 		static fix3 rotate(quaternion q, fix3 v);
 		static quaternion nlerp(quaternion q1, quaternion q2, fix t);
 		static fix3 forward(quaternion q);
-		const quaternion slerp(quaternion q1, quaternion q2, fix t);
+		static quaternion slerp(quaternion q1, quaternion q2, fix t);
 
 		const fix& operator[](int i) const
 		{
@@ -171,6 +171,8 @@ namespace Mathematica
 				break;
 			}
 		}
+
+		fix3 xyz() { return fix3(value.x, value.y, value.z); }
 	};
 
 

@@ -15,10 +15,14 @@ namespace Mathematica
 		fix2(fix a, fix b) { x.value = a.value; y.value = b.value; }
 		fix2(fix a) { x.value = a.value; y.value = a.value; }
 
-		friend	fix2 operator +(const fix2& a, const fix2& b) { return fix2(a.x + b.x, a.y + b.y); }
-		friend	fix2 operator -(const fix2& a, const fix2& b) { return fix2(a.x - b.x, a.y - b.y); }
-		friend	fix2 operator *(const fix2& a, const fix2& b) { return fix2(a.x * b.x, a.y * b.y); }
-		friend	fix2 operator /(const fix2& a, const fix2& b) { return fix2(a.x / b.x, a.y / b.y); }
+		friend fix2 operator +(const fix2& a, const fix2& b) { return fix2(a.x + b.x, a.y + b.y); }
+		friend fix2 operator -(const fix2& a, const fix2& b) { return fix2(a.x - b.x, a.y - b.y); }
+		friend fix2 operator -(const fix2& a, const fix& b) { return  fix2(a.x - b, a.y - b); }
+		friend fix2 operator -(const fix& a, const fix2& b) { return  fix2(a - b.x, a - b.y); }
+		friend fix2 operator *(const fix2& a, const fix2& b) { return fix2(a.x * b.x, a.y * b.y); }
+		friend fix2 operator *(const fix2& a, const fix& b) { return fix2(a.x * b, a.y * b); }
+		friend fix2 operator *(const fix& a, const fix2& b) { return fix2(a * b.x, a * b.y); }
+		friend fix2 operator /(const fix2& a, const fix2& b) { return fix2(a.x / b.x, a.y / b.y); }
 
 		void operator +=(const fix2& a) { x = x + a.x; y = y + a.y; }
 		void operator -=(const fix2& a) { x = x - a.x; y = y - a.y; }
@@ -37,7 +41,7 @@ namespace Mathematica
 		friend fix2 operator >>(fix2 a, int32_t amount) { return(a.x >> amount, a.y >> amount); }
 		friend fix2 operator <<(fix2 a, int32_t amount) { return(a.x << amount, a.y << amount); }
 
-		int32_t GetHashCode() { return (x.value * 397) ^ y.value; }
+		int64_t GetHashCode() { return (x.value * 397) ^ y.value; }
 
 		const fix& operator[](int i) const
 		{
@@ -50,7 +54,6 @@ namespace Mathematica
 				return y;
 				break;
 			default:
-				//return  fix::MaxValue;
 				break;
 			}
 		}
@@ -64,7 +67,7 @@ namespace Mathematica
 
 			return out;
 		}
-		//friend	fix3 xyy() { return fix3(x, y, y); }
+		//friend fix3 xyy() { return fix3(x, y, y); }
 	};
 
 

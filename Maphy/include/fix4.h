@@ -31,10 +31,14 @@ namespace Mathematica
 			w.value = a.value;
 		}
 
-		friend	fix4 operator +(const fix4& a, const fix4& b) { return fix4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w); }
-		friend	fix4 operator -(const fix4& a, const fix4& b) { return fix4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w); }
-		friend	fix4 operator *(const fix4& a, const fix4& b) { return fix4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w); }
-		friend	fix4 operator /(const fix4& a, const fix4& b) { return fix4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w); }
+		friend fix4 operator +(const fix4& a, const fix4& b) { return fix4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w); }
+		friend fix4 operator -(const fix4& a, const fix4& b) { return fix4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w); }
+		friend fix4 operator -(const fix4& a, const fix& b) { return  fix4(a.x - b, a.y - b, a.z - b, a.w - b); }
+		friend fix4 operator -(const fix& a, const fix4& b) { return  fix4(a - b.x, a - b.y, a - b.z, a - b.w); }
+		friend fix4 operator *(const fix4& a, const fix4& b) { return fix4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w); }
+		friend fix4 operator *(const fix4& a, const fix& b) { return fix4(a.x * b, a.y * b, a.z * b, a.w * b); }
+		friend fix4 operator *(const fix& a, const fix4& b) { return fix4(a * b.x, a * b.y, a * b.z, a * b.w); }
+		friend fix4 operator /(const fix4& a, const fix4& b) { return fix4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w); }
 
 		void operator +=(const fix4& a) { x = x + a.x; y = y + a.y; z = z + a.z; w = w + a.w; }
 		void operator -=(const fix4& a) { x = x - a.x; y = y - a.y; z = z - a.z; w = w - a.w; }
@@ -56,14 +60,14 @@ namespace Mathematica
 			case 1:
 				return y;
 				break;
-			case2:
+			case 2:
 				return z;
 				break;
 			case 3:
 				return w;
 				break;
 			default:
-				//fix	result = fix::MaxValue;
+				//fix result = fix::MaxValue;
 				//return MaxValue;
 				break;
 			}
@@ -77,13 +81,13 @@ namespace Mathematica
 
 			return out;
 		}
-		//friend	fix4* xy(fix4 a) {
-		//		fix4* result; 
-		//		result->x = a.x; 
-		//		result->y=a. y; 
-		//		return result; }
+		//friend fix4* xy(fix4 a) {
+		//  fix4* result; 
+		//  result->x = a.x; 
+		//  result->y=a. y; 
+		//  return result; }
 		//};
 
-		fix3 xyz() { return fix3(x, y, z); }
+		//fix3 xyz() { return fix3(x, y, z); }
 	};
 }

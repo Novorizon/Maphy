@@ -20,9 +20,9 @@ namespace Mathematica
 	fix quaternion::lengthsq(quaternion q) { return dot(q.value, q.value); }
 
 
-	fix3 quaternion::mul(quaternion q, fix3 v) { fix3 t = _2 * math::cross(q.value.xyz(), v); return v + q.value.w * t + math::cross(q.value.xyz(), t); }
+	fix3 quaternion::mul(quaternion q, fix3 v) { fix3 t = _2 * math::cross(q.xyz(), v); return v + q.value.w * t + math::cross(q.xyz(), t); }
 
-	fix3 quaternion::rotate(quaternion q, fix3 v) { fix3 t = _2 * math::cross(q.value.xyz(), v); return v + q.value.w * t + math::cross(q.value.xyz(), t); }
+	fix3 quaternion::rotate(quaternion q, fix3 v) { fix3 t = _2 * math::cross(q.xyz(), v); return v + q.value.w * t + math::cross(q.xyz(), t); }
 
 	quaternion quaternion::nlerp(quaternion q1, quaternion q2, fix t)
 	{
