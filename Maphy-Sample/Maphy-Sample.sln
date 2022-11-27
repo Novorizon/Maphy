@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Maphy-Sample", "Maphy-Sample\Maphy-Sample.vcxproj", "{B0AD31A2-C318-4E9F-A385-9882D1C400C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9200CDAD-22C9-4932-BF10-9A800B726896} = {9200CDAD-22C9-4932-BF10-9A800B726896}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Maphy", "..\Maphy\Maphy.vcxproj", "{9200CDAD-22C9-4932-BF10-9A800B726896}"
 EndProject

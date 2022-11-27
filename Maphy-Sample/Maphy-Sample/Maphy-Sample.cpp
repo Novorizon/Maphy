@@ -1,18 +1,18 @@
 ﻿
 #include <iostream>
-#include "../../Maphy/include/fix.h"
-#include "../../Maphy/include/fix2.h"
-#include "../../Maphy/include/common.h"
-#include "../../Maphy/include/math.h"
-#include "../../Maphy/include/fix3x3.h"
 #include "../../Maphy/include/quaternion.h"
+//#include "../../Maphy/src/math.cpp"
 using namespace std;
 
 int main()
 {
 	using namespace Mathematica;
 
-	int t1 = 1;
+
+	fix as1 = math::atan2Number1;
+	fix as2 = math::abs(-1);
+	fix as3 = math::sign(-1);
+ 	int t1 = 1;
 	int t2 = t1;
 	int* p = &t1;
 	std::cout << t1 << std::endl;
@@ -71,7 +71,7 @@ int main()
 
 	fix2 a222(1, 2);
 	fix aaaa = 1 / bbb;
-	int asd = aaaa.Value();
+	int64_t asd = aaaa.Value();
 	string str2 = aaaa.ToString();
 	cout << (fix(1 / bbb)).ToString() << endl;
 	quaternion q = quaternion(0, 0, 0, 1);
