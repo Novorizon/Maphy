@@ -1,12 +1,13 @@
 
 #include <iostream>
-#include "include/quaternion.h"
+#include "Mathematica/include/quaternion.h"
 using namespace std;
 int main()
 {
 	using namespace Mathematica;
 
-
+	if (NaN == std::numeric_limits<float>::quiet_NaN())
+		int aaaa = 1;
 	fix as1 = math::atan2Number1;
 	fix as2 = math::sqrt(-1);
 	fix as3 = math::sign(-1);

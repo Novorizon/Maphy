@@ -18,6 +18,36 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Mathematica\include\common.h" />
+    <ClInclude Include="Mathematica\include\define.h" />
+    <ClInclude Include="Mathematica\include\fix.h" />
+    <ClInclude Include="Mathematica\include\fix2.h" />
+    <ClInclude Include="Mathematica\include\fix3.h" />
+    <ClInclude Include="Mathematica\include\fix3x3.h" />
+    <ClInclude Include="Mathematica\include\fix4.h" />
+    <ClInclude Include="Mathematica\include\fix4x4.h" />
+    <ClInclude Include="Mathematica\include\LUT\AcosLut.h" />
+    <ClInclude Include="Mathematica\include\LUT\AsinLut.h" />
+    <ClInclude Include="Mathematica\include\LUT\SinCosLut.h" />
+    <ClInclude Include="Mathematica\include\LUT\SinLut.h" />
+    <ClInclude Include="Mathematica\include\LUT\TanLut.h" />
+    <ClInclude Include="Mathematica\include\math.h" />
+    <ClInclude Include="Mathematica\include\quaternion.h" />
+    <ClInclude Include="Mathematica\include\Trig.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Mathematica\src\fix.cpp" />
+    <ClCompile Include="Mathematica\src\fix2.cpp" />
+    <ClCompile Include="Mathematica\src\fix3.cpp" />
+    <ClCompile Include="Mathematica\src\fix3x3.cpp" />
+    <ClCompile Include="Mathematica\src\fix4.cpp" />
+    <ClCompile Include="Mathematica\src\fix4x4.cpp" />
+    <ClCompile Include="Mathematica\src\math.cpp" />
+    <ClCompile Include="Mathematica\src\quaternion.cpp" />
+    <ClCompile Include="Mathematica\src\Trig.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -126,36 +156,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="include\common.h" />
-    <ClInclude Include="include\define.h" />
-    <ClInclude Include="include\fix.h" />
-    <ClInclude Include="include\fix2.h" />
-    <ClInclude Include="include\fix3.h" />
-    <ClInclude Include="include\fix3x3.h" />
-    <ClInclude Include="include\fix4.h" />
-    <ClInclude Include="include\fix4x4.h" />
-    <ClInclude Include="include\LUT\AcosLut.h" />
-    <ClInclude Include="include\LUT\AsinLut.h" />
-    <ClInclude Include="include\LUT\SinCosLut.h" />
-    <ClInclude Include="include\LUT\SinLut.h" />
-    <ClInclude Include="include\LUT\TanLut.h" />
-    <ClInclude Include="include\math.h" />
-    <ClInclude Include="include\quaternion.h" />
-    <ClInclude Include="include\Trig.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="src\fix.cpp" />
-    <ClCompile Include="src\fix2.cpp" />
-    <ClCompile Include="src\fix3.cpp" />
-    <ClCompile Include="src\fix3x3.cpp" />
-    <ClCompile Include="src\fix4.cpp" />
-    <ClCompile Include="src\fix4x4.cpp" />
-    <ClCompile Include="src\math.cpp" />
-    <ClCompile Include="src\quaternion.cpp" />
-    <ClCompile Include="src\Trig.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

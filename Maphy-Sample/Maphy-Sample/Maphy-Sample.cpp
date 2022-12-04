@@ -1,88 +1,20 @@
-﻿
+﻿// Maphy-Sample.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
+//
+
 #include <iostream>
-#include "../../Maphy/include/quaternion.h"
-//#include "../../Maphy/src/math.cpp"
-using namespace std;
 
 int main()
 {
-	using namespace Mathematica;
-
-
-	fix as1 = math::atan2Number1;
-	fix as2 = math::abs(-1);
-	fix as3 = math::sign(-1);
- 	int t1 = 1;
-	int t2 = t1;
-	int* p = &t1;
-	std::cout << t1 << std::endl;
-	std::cout << &t1 << std::endl;
-	std::cout << &t2 << std::endl;
-	std::cout << p << std::endl;
-	std::cout << &(*p) << std::endl;
-
-	string str = "abc";
-	std::cout << str << std::endl;
-	std::cout << &str << std::endl;
-	std::cout << &str[0] << std::endl;
-
-	char* ch = new char[3] { 'a', 'b', 'c' };
-	//const	char ccc[3] = "abc";
-
-	std::cout << ch << std::endl;
-	std::cout << &ch << std::endl;
-	std::cout << ch[0] << std::endl;
-
-	/*  Triangle navmeshes[100] ;
-	  Triangle* navmesh = new Triangle[100];
-	  for (int32_t i = 0; i < 100; i++)
-	  {
-		  float3 a=float3(i, i * 2 , i * 3);
-		  float3 b = float3(i*2, i * 3, i * 4);
-		  float3 c= float3(i * 3, i * 4, i * 5);
-		  navmeshes[i] = Triangle(a,b,c);
-	  }
-	  AStar astar = AStar();
-	  astar.SetNavMesh(navmeshes,100);*/
-
-	  /*  for (size_t i = 0; i < 100; i++)
-		{
-			std::cout << astar.triangles [i] << "\n";
-		}*/
-
-	fix a = 0;
-
-	Mathematica::fix b = 1.1f;
-
-	Mathematica::fix c = 1;
-	c = c + 1;
-
-	//std::string str = c.ToString();
-
-	std::cout << a.ToString() << "\n";
-
-	Mathematica::fix2 a2 = Mathematica::fix2(1);
-	a = a2[1];
-
-	float aaa = 1;
-	fix bbb = 2;
-	fix ccc = aaa + bbb;
-	//bbb = fix::_0;
-
-	fix2 a222(1, 2);
-	fix aaaa = 1 / bbb;
-	int64_t asd = aaaa.Value();
-	string str2 = aaaa.ToString();
-	cout << (fix(1 / bbb)).ToString() << endl;
-	quaternion q = quaternion(0, 0, 0, 1);
-
-	fix maxValue = fix::Raw(MAX_VALUE);//140737488355327->2147483647 32位最大值 
-
-
-
-	int64_t t = 9223372036854775807;
-	fix max = fix::Raw(((int64_t)1 << (int64_t)46) - 2);//可表示的最大值
-	max = fix::Raw(281474976710698);//可表示的最大值
-	std::cout << MaxValue.ToString() << "\n";
-	std::cout << MinValue.ToString() << "\n";
+    std::cout << "Hello World!\n";
 }
+
+// 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
+// 调试程序: F5 或调试 >“开始调试”菜单
+
+// 入门使用技巧: 
+//   1. 使用解决方案资源管理器窗口添加/管理文件
+//   2. 使用团队资源管理器窗口连接到源代码管理
+//   3. 使用输出窗口查看生成输出和其他消息
+//   4. 使用错误列表窗口查看错误
+//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
+//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
