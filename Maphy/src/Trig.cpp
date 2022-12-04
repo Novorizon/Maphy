@@ -1,4 +1,4 @@
-﻿#include "../include/Trigonometric.h"
+﻿#include "../include/Trig.h"
 
 namespace Mathematica
 {

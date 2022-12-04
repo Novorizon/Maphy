@@ -19,6 +19,9 @@ namespace Mathematica
 	//const fix Max = fix::Raw(((int64_t)1 << (BITS - PRECISION)) - 1);//可表示的最大值 4294967296 (281474976710657)
 	//const fix Min = fix::Raw(-((int64_t)1 << (BITS - PRECISION - 1)));//可表示的最小值 -4294967295
 
+	const fix epsilon = std::numeric_limits<float>::epsilon();
+	const fix NaN = std::numeric_limits<float>::quiet_NaN();
+
 	const fix _0 = fix(0);
 	const fix _1 = fix(1);
 	const fix _2 = fix(2);
