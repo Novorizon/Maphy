@@ -1,12 +1,19 @@
 
 #include <iostream>
 #include "Mathematica/include/quaternion.h"
+#include "Mathematics/include/math.h"
 using namespace std;
+//using maths = Mathematics::math;
+using math = Mathematica::math;
+using fix= Mathematica::fix;
+using fix2 = Mathematica::fix2;
+using fix3 = Mathematica::fix3;
+using quaternion = Mathematica::quaternion;
 int main()
 {
-	using namespace Mathematica;
 
-	if (NaN == std::numeric_limits<float>::quiet_NaN())
+	auto aaaaa = Mathematics::math::Rad2Deg;
+	if (Mathematica::NaN == std::numeric_limits<float>::quiet_NaN())
 		int aaaa = 1;
 	fix as1 = math::atan2Number1;
 	fix as2 = math::sqrt(-1);
@@ -75,13 +82,13 @@ int main()
 	cout << (fix(1 / bbb)).ToString() << endl;
 	quaternion q = quaternion(0, 0, 0, 1);
 
-	fix maxValue = fix::Raw(MAX_VALUE);//140737488355327->2147483647 32位最大值 
+	fix maxValue = fix::Raw(Mathematica::MAX_VALUE);//140737488355327->2147483647 32位最大值 
 
 
 
 	int64_t t = 9223372036854775807;
 	fix max = fix::Raw(((int64_t)1 << (int64_t)46) - 2);//可表示的最大值
 	max = fix::Raw(281474976710698);//可表示的最大值
-	std::cout << MaxValue.ToString() << "\n";
-	std::cout << MinValue.ToString() << "\n";
+	std::cout << Mathematica::MaxValue.ToString() << "\n";
+	std::cout << Mathematica::MinValue.ToString() << "\n";
 }

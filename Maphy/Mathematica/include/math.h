@@ -23,14 +23,14 @@ namespace Mathematica
 		static const fix Epsilon;
 		static const fix E;
 
-		static	const fix atan2Number1;
-		static	const fix atan2Number2;
-		static	const fix atan2Number3;
-		static	const fix atan2Number4;
-		static	const fix atan2Number5;
-		static	const fix atan2Number6;
-		static	const fix atan2Number7;
-		static	const fix atan2Number8;
+		static const fix atan2Number1;
+		static const fix atan2Number2;
+		static const fix atan2Number3;
+		static const fix atan2Number4;
+		static const fix atan2Number5;
+		static const fix atan2Number6;
+		static const fix atan2Number7;
+		static const fix atan2Number8;
 
 		static fix max(const fix& x, const fix& y) { return x > y ? x : y; }
 		static fix2 max(const fix2 x, const fix2& y) { return fix2(max(x.x, y.x), max(x.y, y.y)); }
@@ -79,11 +79,11 @@ namespace Mathematica
 		static fix2 log(const fix2& x) { return fix2(log(x.x), log(x.y)); }
 		static fix3 log(const fix3& x) { return fix3(log(x.x), log(x.y), log(x.z)); }
 		static fix4 log(const fix4& x) { return fix4(log(x.x), log(x.y), log(x.z), log(x.w)); }
-		
-		static fix log(const fix& x) { return ln(x) / Ln2; }/// 以2为底，x的对数	
-		static fix log2(const fix& x) { return ln(x) / Ln2; }	/// 以2为底，x的对数	
-		static fix log10(const fix& x) { return ln(x) / Ln10; }	/// 以10为底，x的对数	
-		static fix ln(const fix& x);		/// 以自然对数e为底，x的对数	//TODO
+
+		static fix log(const fix& x) { return ln(x) / Ln2; }/// 以2为底，x的对数 
+		static fix log2(const fix& x) { return ln(x) / Ln2; } /// 以2为底，x的对数 
+		static fix log10(const fix& x) { return ln(x) / Ln10; } /// 以10为底，x的对数 
+		static fix ln(const fix& x);  /// 以自然对数e为底，x的对数 //TODO
 
 		static fix sqrt(const fix& x);
 		static fix2 sqrt(const fix2& x) { return fix2(sqrt(x.x), sqrt(x.y)); }

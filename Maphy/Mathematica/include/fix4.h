@@ -76,7 +76,7 @@ namespace Mathematica
 		std::string ToString()const
 		{
 			std::stringstream ss;
-			ss << "(" << (x.value >> PRECISION) << "," << (y.value >> PRECISION) << "," << (z.value >> PRECISION) << ")";
+			ss << "(" << (x.value >> PRECISION) << "," << (y.value >> PRECISION) << "," << (z.value >> PRECISION) << "," << (w.value >> PRECISION) << ")";
 			std::string out = ss.str();
 
 			return out;

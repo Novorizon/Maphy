@@ -35,6 +35,15 @@
     <ClInclude Include="Mathematica\include\math.h" />
     <ClInclude Include="Mathematica\include\quaternion.h" />
     <ClInclude Include="Mathematica\include\Trig.h" />
+    <ClInclude Include="Mathematics\include\common.h" />
+    <ClInclude Include="Mathematics\include\define.h" />
+    <ClInclude Include="Mathematics\include\float2.h" />
+    <ClInclude Include="Mathematics\include\float3.h" />
+    <ClInclude Include="Mathematics\include\float3x3.h" />
+    <ClInclude Include="Mathematics\include\float4.h" />
+    <ClInclude Include="Mathematics\include\float4x4.h" />
+    <ClInclude Include="Mathematics\include\math.h" />
+    <ClInclude Include="Mathematics\include\quaternion.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -47,6 +56,13 @@
     <ClCompile Include="Mathematica\src\math.cpp" />
     <ClCompile Include="Mathematica\src\quaternion.cpp" />
     <ClCompile Include="Mathematica\src\Trig.cpp" />
+    <ClCompile Include="Mathematics\src\float2.cpp" />
+    <ClCompile Include="Mathematics\src\float3.cpp" />
+    <ClCompile Include="Mathematics\src\float3x3.cpp" />
+    <ClCompile Include="Mathematics\src\float4.cpp" />
+    <ClCompile Include="Mathematics\src\float4x4.cpp" />
+    <ClCompile Include="Mathematics\src\math.cpp" />
+    <ClCompile Include="Mathematics\src\quaternion.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -134,6 +150,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,6 +165,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
