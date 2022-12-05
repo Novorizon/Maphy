@@ -20,9 +20,9 @@ namespace Mathematica
 	fix quaternion::lengthsq(quaternion q) { return dot(q.value, q.value); }
 
 
-	fix3 quaternion::mul(quaternion q, fix3 v) { fix3 t = _2 * math::cross(q.xyz(), v); return v + q.value.w * t + math::cross(q.xyz(), t); }
+	fix3 quaternion::mul(quaternion q, fix3 v) { fix3 t = fix::_2 * math::cross(q.xyz(), v); return v + q.value.w * t + math::cross(q.xyz(), t); }
 
-	fix3 quaternion::rotate(quaternion q, fix3 v) { fix3 t = _2 * math::cross(q.xyz(), v); return v + q.value.w * t + math::cross(q.xyz(), t); }
+	fix3 quaternion::rotate(quaternion q, fix3 v) { fix3 t = fix::_2 * math::cross(q.xyz(), v); return v + q.value.w * t + math::cross(q.xyz(), t); }
 
 	quaternion quaternion::nlerp(quaternion q1, quaternion q2, fix t)
 	{
@@ -44,7 +44,7 @@ namespace Mathematica
 			q2.value = -q2.value;
 		}
 
-		if (dt < _0_9995)
+		if (dt < fix::_0_9995)
 		{
 			fix angle = math::acos(dt);
 			fix s = math::rsqrt(1 - dt * dt);

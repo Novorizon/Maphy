@@ -10,6 +10,16 @@ namespace Mathematica
 		fix y;
 		fix z;
 
+		static const fix3 left;
+		static const fix3 right;
+		static const fix3 up;
+		static const fix3 down;
+		static const fix3 forward;
+		static const fix3 backward;
+		static const fix3 one;
+		static const fix3 one_inverse;
+		static const fix3 zero;
+
 		fix3()
 		{
 		}

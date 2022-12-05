@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Mathematica\include\common.h" />
+    <ClInclude Include="Mathematica\include\config.h" />
     <ClInclude Include="Mathematica\include\define.h" />
     <ClInclude Include="Mathematica\include\fix.h" />
     <ClInclude Include="Mathematica\include\fix2.h" />

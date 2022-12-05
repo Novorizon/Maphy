@@ -40,7 +40,7 @@ namespace Mathematica
 
 		fix result;
 		result.value = value.value >> PRECISION << PRECISION;
-		result += One;
+		result += fix::one;
 		return result;
 	}
 
@@ -74,7 +74,7 @@ namespace Mathematica
 	fix math::ln(const fix& x)
 	{
 		if (x <= 0)
-			return MinValue;
+			return fix::MinValue;
 
 		fix result(x.value);
 		int k = 0, l = 0;
@@ -122,10 +122,10 @@ namespace Mathematica
 	fix math::sqrt(const fix& x)
 	{
 		if (x.value < 0)
-			return MinValue;
+			return fix::MinValue;
 
 		if (x.value == 0)
-			return Zero;
+			return fix::zero;
 
 		fix a = x;
 		int64_t b = (a.value >> 2) + 1L;
@@ -146,7 +146,7 @@ namespace Mathematica
 		fix t1 = absY;
 		fix t0 = max(t3, t1);
 		t1 = min(t3, t1);
-		t3 = _1 / t0;
+		t3 = fix::_1 / t0;
 		t3 = t1 * t3;
 		fix t4 = t3 * t3;
 		t0 = atan2Number1;
@@ -157,8 +157,8 @@ namespace Mathematica
 		t0 = t0 * t4 + atan2Number6;
 		t3 = t0 * t3;
 		t3 = absY > absX ? atan2Number7 - t3 : t3;
-		t3 = x < _0 ? atan2Number8 - t3 : t3;
-		t3 = y < _0 ? -t3 : t3;
+		t3 = x < fix::_0 ? atan2Number8 - t3 : t3;
+		t3 = y < fix::_0 ? -t3 : t3;
 		return t3;
 	}
 

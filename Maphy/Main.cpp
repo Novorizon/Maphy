@@ -11,9 +11,9 @@ using fix3 = Mathematica::fix3;
 using quaternion = Mathematica::quaternion;
 int main()
 {
-
+	auto f3 = fix3::left;
 	auto aaaaa = Mathematics::math::Rad2Deg;
-	if (Mathematica::NaN == std::numeric_limits<float>::quiet_NaN())
+	if (fix::NaN == std::numeric_limits<float>::quiet_NaN())
 		int aaaa = 1;
 	fix as1 = math::atan2Number1;
 	fix as2 = math::sqrt(-1);
@@ -89,6 +89,6 @@ int main()
 	int64_t t = 9223372036854775807;
 	fix max = fix::Raw(((int64_t)1 << (int64_t)46) - 2);//可表示的最大值
 	max = fix::Raw(281474976710698);//可表示的最大值
-	std::cout << Mathematica::MaxValue.ToString() << "\n";
-	std::cout << Mathematica::MinValue.ToString() << "\n";
+	std::cout << fix::MaxValue.ToString() << "\n";
+	std::cout << fix::MinValue.ToString() << "\n";
 }

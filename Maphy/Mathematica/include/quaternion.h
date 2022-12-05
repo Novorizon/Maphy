@@ -33,34 +33,34 @@ namespace Mathematica
 			if (tr > 0)
 			{
 				fix S = math::sqrt(tr + 1) * 2; // S=4*qw 
-				value.w = _0_25 * S;
+				value.w = fix::_0_25 * S;
 				value.x = (m21 - m12) / S;
 				value.y = (m02 - m20) / S;
 				value.z = (m10 - m01) / S;
 			}
 			else if ((m00 > m11) && (m00 > m22))
 			{
-				fix S = math::sqrt(_1 + m00 - m11 - m22) * 2; // S=4*qx 
+				fix S = math::sqrt(fix::_1 + m00 - m11 - m22) * 2; // S=4*qx 
 				value.w = (m21 - m12) / S;
-				value.x = _0_25 * S;
+				value.x = fix::_0_25 * S;
 				value.y = (m01 + m10) / S;
 				value.z = (m02 + m20) / S;
 			}
 			else if (m11 > m22)
 			{
-				fix S = math::sqrt(_1 + m11 - m00 - m22) * 2; // S=4*qy
+				fix S = math::sqrt(fix::_1 + m11 - m00 - m22) * 2; // S=4*qy
 				value.w = (m02 - m20) / S;
 				value.x = (m01 + m10) / S;
-				value.y = _0_25 * S;
+				value.y = fix::_0_25 * S;
 				value.z = (m12 + m21) / S;
 			}
 			else
 			{
-				fix S = math::sqrt(_1 + m22 - m00 - m11) * 2; // S=4*qz
+				fix S = math::sqrt(fix::_1 + m22 - m00 - m11) * 2; // S=4*qz
 				value.w = (m10 - m01) / S;
 				value.x = (m02 + m20) / S;
 				value.y = (m12 + m21) / S;
-				value.z = _0_25 * S;
+				value.z = fix::_0_25 * S;
 			}
 
 			value = math::normalize(value);
@@ -83,39 +83,39 @@ namespace Mathematica
 
 			if (tr > 0)
 			{
-				fix S = math::sqrt(tr + _1) * 2; // S=4*qw 
+				fix S = math::sqrt(tr + fix::_1) * 2; // S=4*qw 
 				fix Srcp = 1 / S;
-				value.w = _0_25 * S;
+				value.w = fix::_0_25 * S;
 				value.x = (m21 - m12) * Srcp;
 				value.y = (m02 - m20) * Srcp;
 				value.z = (m10 - m01) * Srcp;
 			}
 			else if ((m00 > m11) && (m00 > m22))
 			{
-				fix S = math::sqrt(_1 + m00 - m11 - m22) * 2; // S=4*qx 
+				fix S = math::sqrt(fix::_1 + m00 - m11 - m22) * 2; // S=4*qx 
 				fix Srcp = 1 / S;
 				value.w = (m21 - m12) * Srcp;
-				value.x = _0_25 * S;
+				value.x = fix::_0_25 * S;
 				value.y = (m01 + m10) * Srcp;
 				value.z = (m02 + m20) * Srcp;
 			}
 			else if (m11 > m22)
 			{
-				fix S = math::sqrt(_1 + m11 - m00 - m22) * 2; // S=4*qy
+				fix S = math::sqrt(fix::_1 + m11 - m00 - m22) * 2; // S=4*qy
 				fix Srcp = 1 / S;
 				value.w = (m02 - m20) * Srcp;
 				value.x = (m01 + m10) * Srcp;
-				value.y = _0_25 * S;
+				value.y = fix::_0_25 * S;
 				value.z = (m12 + m21) * Srcp;
 			}
 			else
 			{
-				fix S = math::sqrt(_1 + m22 - m00 - m11) * 2; // S=4*qz
+				fix S = math::sqrt(fix::_1 + m22 - m00 - m11) * 2; // S=4*qz
 				fix Srcp = 1 / S;
 				value.w = (m10 - m01) * Srcp;
 				value.x = (m02 + m20) * Srcp;
 				value.y = (m12 + m21) * Srcp;
-				value.z = _0_25 * S;
+				value.z = fix::_0_25 * S;
 			}
 
 			value = math::normalize(value);
@@ -132,7 +132,7 @@ namespace Mathematica
 
 		friend fix3 operator *(quaternion q, fix3 v)
 		{
-			fix3 t = _2 * math::cross(q.xyz(), v);
+			fix3 t = fix::_2 * math::cross(q.xyz(), v);
 			return v + q.value.w * t + math::cross(q.xyz(), t);
 		}
 

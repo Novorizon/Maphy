@@ -1,5 +1,4 @@
 #pragma once
-#include "common.h"
 #include "fix2.h"
 #include "fix3.h"
 #include "fix4.h"
@@ -115,10 +114,10 @@ namespace Mathematica
 		static fix lengthsq(const fix3& x) { return dot(x, x); }
 		static fix lengthsq(const fix4& x) { return dot(x, x); }
 
-		static fix rcp(const fix& x) { return One / x; }
-		static fix2 rcp(const fix2& x) { return One / x; }
-		static fix3 rcp(const fix3& x) { return One / x; }
-		static fix4 rcp(const fix4& x) { return One / x; }
+		static fix rcp(const fix& x) { return fix::one / x; }
+		static fix2 rcp(const fix2& x) { return fix::one / x; }
+		static fix3 rcp(const fix3& x) { return fix::one / x; }
+		static fix4 rcp(const fix4& x) { return fix::one / x; }
 
 		static fix radians(const fix& x) { return x * Deg2Rad; }
 		static fix2 radians(const fix2& x) { return x * Deg2Rad; }
@@ -224,7 +223,7 @@ namespace Mathematica
 		static fix3 tan(const fix3& x) { return fix3(tan(x.x), tan(x.y), tan(x.z)); }
 		static fix4 tan(const fix4& x) { return fix4(tan(x.x), tan(x.y), tan(x.z), tan(x.w)); }
 
-		static fix asin(const fix& x) { fix result; result.value = x.value + ONE; result *= _0_5; result.value = trigonometric::asin(result.value); return result; }
+		static fix asin(const fix& x) { fix result; result.value = x.value + ONE; result *= fix::_0_5; result.value = trigonometric::asin(result.value); return result; }
 		static fix2 asin(const fix2& x) { return fix2(asin(x.x), asin(x.y)); }
 		static fix3 asin(const fix3& x) { return fix3(asin(x.x), asin(x.y), asin(x.z)); }
 		static fix4 asin(const fix4& x) { return fix4(asin(x.x), asin(x.y), asin(x.z), asin(x.w)); }
@@ -235,7 +234,7 @@ namespace Mathematica
 		static fix4 acos(const fix4& x) { return fix4(acos(x.x), acos(x.y), acos(x.z), acos(x.w)); }
 
 
-		static fix atan(const fix& x) { return atan2(x, _1); }
+		static fix atan(const fix& x) { return atan2(x, fix::_1); }
 		static fix2 atan(const fix2& x) { return fix2(atan(x.x), atan(x.y)); }
 		static fix3 atan(const fix3& x) { return fix3(atan(x.x), atan(x.y), atan(x.z)); }
 		static fix4 atan(const fix4& x) { return fix4(atan(x.x), atan(x.y), atan(x.z), atan(x.w)); }
