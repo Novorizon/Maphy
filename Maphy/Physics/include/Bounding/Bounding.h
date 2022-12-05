@@ -1,0 +1,10 @@
+
+namespace Physics
+{
+	struct IBounding
+	{
+	};
+
+
+}
+

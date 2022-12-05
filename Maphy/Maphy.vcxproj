@@ -44,6 +44,9 @@
     <ClInclude Include="Mathematics\include\float4x4.h" />
     <ClInclude Include="Mathematics\include\math.h" />
     <ClInclude Include="Mathematics\include\quaternion.h" />
+    <ClInclude Include="Physics\config.h" />
+    <ClInclude Include="Physics\include\Bounding\AABB.h" />
+    <ClInclude Include="Physics\include\Bounding\Bounding.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -63,6 +66,7 @@
     <ClCompile Include="Mathematics\src\float4x4.cpp" />
     <ClCompile Include="Mathematics\src\math.cpp" />
     <ClCompile Include="Mathematics\src\quaternion.cpp" />
+    <ClCompile Include="Physics\src\Bounding\AABB.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

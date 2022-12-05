@@ -6,6 +6,7 @@
 //#include "float4.h"
 //#include "float3x3.h"
 //#include "float4x4.h"
+//#include "quaternion.h"
 namespace Mathematics
 {
 	const float MaxValue = std::numeric_limits<float>::max();

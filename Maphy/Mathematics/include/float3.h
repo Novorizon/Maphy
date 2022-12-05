@@ -10,8 +10,20 @@ namespace Mathematics
 		float y;
 		float z;
 
+		static const float3 left;
+		static const float3 right;
+		static const float3 up;
+		static const float3 down;
+		static const float3 forward;
+		static const float3 backward;
+		static const float3 one;
+		static const float3 one_inverse;
+		static const float3 zero;
 		float3()
 		{
+			x = 0;
+			y = 0;
+			z = 0;
 		}
 
 		float3(float a, float b, float c)
