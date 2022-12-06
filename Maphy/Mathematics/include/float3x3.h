@@ -1,5 +1,5 @@
 #pragma once
-#include "define.h"
+#include "config.h"
 #include "float3.h"
 namespace Mathematics
 {

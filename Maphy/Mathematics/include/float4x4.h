@@ -1,4 +1,5 @@
 #pragma once
+#include "config.h"
 #include "float4.h"
 namespace Mathematics
 {

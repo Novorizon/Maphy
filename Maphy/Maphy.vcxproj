@@ -34,8 +34,7 @@
     <ClInclude Include="Mathematica\include\math.h" />
     <ClInclude Include="Mathematica\include\quaternion.h" />
     <ClInclude Include="Mathematica\include\Trig.h" />
-    <ClInclude Include="Mathematics\include\common.h" />
-    <ClInclude Include="Mathematics\include\define.h" />
+    <ClInclude Include="Mathematics\include\config.h" />
     <ClInclude Include="Mathematics\include\float2.h" />
     <ClInclude Include="Mathematics\include\float3.h" />
     <ClInclude Include="Mathematics\include\float3x3.h" />

@@ -1,6 +1,9 @@
 #pragma once
 #include<cmath>
-#include "define.h"
+#include<limits>
+#include <cstdint>
+#include <string>
+#include <sstream>
 namespace Mathematics
 {
 	const float MaxValue = std::numeric_limits<float>::max();
