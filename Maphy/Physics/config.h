@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <sstream>
-#include "../Mathematics/include/common.h"
 #include "../Mathematics/include/math.h"
 #include "../Mathematics/include/quaternion.h"
 
