@@ -2,51 +2,51 @@
 #include "../../include/Bounding/AABB.h"
 namespace Physics
 {
-	const float* AABB::triangles = new float[36] { 0, 1, 5, 0, 4, 5, 2, 3, 7, 2, 6, 7, 0, 3, 7, 0, 4, 7, 1, 2, 6, 1, 5, 6, 0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7 }; //暂时用于与AABB的相交检测
-	const float3* AABB::Normals = new float3  [3] { float3::right, float3::up, float3::forward };//x轴 左右法线，y轴上下法线，z轴前后法线
+	const Float* AABB::triangles = new Float[36]{ 0, 1, 5, 0, 4, 5, 2, 3, 7, 2, 6, 7, 0, 3, 7, 0, 4, 7, 1, 2, 6, 1, 5, 6, 0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7 }; //暂时用于与AABB的相交检测
+	const Float3* AABB::Normals = new Float3[3]{ Float3::right, Float3::up, Float3::forward };//x轴 左右法线，y轴上下法线，z轴前后法线
 
-	AABB::AABB(float3 min, float3 max)
+	AABB::AABB(Float3 min, Float3 max)
 	{
-		Points = new float3[VERTEX];
+		Points = new Float3[VERTEX];
 		Min = min;
 		Max = max;
 
 		Center = (min + max) / 2;
 		BevelRadius = (max - min) / 2;
 
-		Points[0] = float3(Min.x, Max.y, Max.z);
-		Points[1] = float3(Min.x, Max.y, Min.z);
-		Points[2] = float3(Max.x, Max.y, Min.z);
+		Points[0] = Float3(Min.x, Max.y, Max.z);
+		Points[1] = Float3(Min.x, Max.y, Min.z);
+		Points[2] = Float3(Max.x, Max.y, Min.z);
 		Points[3] = Max;
-		Points[4] = float3(Min.x, Min.y, Max.z);
+		Points[4] = Float3(Min.x, Min.y, Max.z);
 		Points[5] = Min;
-		Points[6] = float3(Max.x, Min.y, Min.z);
-		Points[7] = float3(Max.x, Min.y, Max.z);
+		Points[6] = Float3(Max.x, Min.y, Min.z);
+		Points[7] = Float3(Max.x, Min.y, Max.z);
 	}
 
 
 	AABB::AABB(AABB a, AABB b)
 	{
-		Points = new float3[VERTEX];
-		Min = float3(math::min(a.Min.x, b.Min.x), math::min(a.Min.y, b.Min.y), math::min(a.Min.z, b.Min.z));
-		Max = float3(math::max(a.Max.x, b.Max.x), math::max(a.Max.y, b.Max.y), math::max(a.Max.z, b.Max.z));
+		Points = new Float3[VERTEX];
+		Min = Float3(Math::min(a.Min.x, b.Min.x), Math::min(a.Min.y, b.Min.y), Math::min(a.Min.z, b.Min.z));
+		Max = Float3(Math::max(a.Max.x, b.Max.x), Math::max(a.Max.y, b.Max.y), Math::max(a.Max.z, b.Max.z));
 
 		Center = (Min + Max) / 2;
 		BevelRadius = (Max - Min) / 2;
 
-		Points[0] = float3(Min.x, Max.y, Max.z);
-		Points[1] = float3(Min.x, Max.y, Min.z);
-		Points[2] = float3(Max.x, Max.y, Min.z);
+		Points[0] = Float3(Min.x, Max.y, Max.z);
+		Points[1] = Float3(Min.x, Max.y, Min.z);
+		Points[2] = Float3(Max.x, Max.y, Min.z);
 		Points[3] = Max;
-		Points[4] = float3(Min.x, Min.y, Max.z);
+		Points[4] = Float3(Min.x, Min.y, Max.z);
 		Points[5] = Min;
-		Points[6] = float3(Max.x, Min.y, Min.z);
-		Points[7] = float3(Max.x, Min.y, Max.z);
+		Points[6] = Float3(Max.x, Min.y, Min.z);
+		Points[7] = Float3(Max.x, Min.y, Max.z);
 	}
 
-	void AABB::Update(float3 center)
+	void AABB::Update(Float3 center)
 	{
-		float3 offset = center - Center;
+		Float3 offset = center - Center;
 		Center = center;
 		Min = Center - BevelRadius;
 		Max = Center + BevelRadius;
@@ -56,19 +56,19 @@ namespace Physics
 		}
 	}
 
-	void AABB::Update(float3 min, float3 max)
+	void AABB::Update(Float3 min, Float3 max)
 	{
 		Min = min;
 		Max = max;
 		Center = (min + max) / 2;
 
-		Points[0] = float3(Min.x, Max.y, Max.z);
-		Points[1] = float3(Min.x, Max.y, Min.z);
-		Points[2] = float3(Max.x, Max.y, Min.z);
+		Points[0] = Float3(Min.x, Max.y, Max.z);
+		Points[1] = Float3(Min.x, Max.y, Min.z);
+		Points[2] = Float3(Max.x, Max.y, Min.z);
 		Points[3] = Max;
-		Points[4] = float3(Min.x, Min.y, Max.z);
+		Points[4] = Float3(Min.x, Min.y, Max.z);
 		Points[5] = Min;
-		Points[6] = float3(Max.x, Min.y, Min.z);
-		Points[7] = float3(Max.x, Min.y, Max.z);
+		Points[6] = Float3(Max.x, Min.y, Min.z);
+		Points[7] = Float3(Max.x, Min.y, Max.z);
 	}
 }

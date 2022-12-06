@@ -9,8 +9,15 @@ namespace Mathematics
 		float x;
 		float y;
 
-		float2() { x = 0; y = 0; }
+		static const float2 left;
+		static const float2 right;
+		static const float2 forward;
+		static const float2 backward;
+		static const float2 one;
+		static const float2 one_inverse;
+		static const float2 zero;
 
+		float2() { x = 0; y = 0; }
 		float2(float a, float b) { x = a; y = b; }
 		float2(float a) { x = a; y = a; }
 
@@ -60,12 +67,12 @@ namespace Mathematics
 		std::string ToString()const
 		{
 			std::stringstream ss;
-			ss << "(" << x  << "," << y  << ")";
+			ss << "(" << x << "," << y << ")";
 			std::string out = ss.str();
 
 			return out;
 		}
-		//friend float3 xyy() { return float3(x, y, y); }
+		//friend float2 xyy() { return float2(x, y, y); }
 	};
 
 

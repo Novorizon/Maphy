@@ -10,6 +10,14 @@ namespace Mathematica
 		fix x;
 		fix y;
 
+		static const fix2 left;
+		static const fix2 right;
+		static const fix2 forward;
+		static const fix2 backward;
+		static const fix2 one;
+		static const fix2 one_inverse;
+		static const fix2 zero;
+
 		fix2() { x = 0; y = 0; }
 
 		fix2(fix a, fix b) { x.value = a.value; y.value = b.value; }

@@ -8,12 +8,12 @@
 
 namespace Physics
 {
-	//using float1 = float;
-	using float2 = Mathematics::float2;
-	using float3 = Mathematics::float3;
-	using float4 = Mathematics::float4;
-	using quaternion = Mathematics::quaternion;
-	using math = Mathematics::math;
+	using Float = float;
+	using Float2 = Mathematics::float2;
+	using Float3 = Mathematics::float3;
+	using Float4 = Mathematics::float4;
+	using Quaternion = Mathematics::quaternion;
+	using Math = Mathematics::math;
 
 
 }
