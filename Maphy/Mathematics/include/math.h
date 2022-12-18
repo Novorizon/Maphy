@@ -16,6 +16,7 @@ namespace Mathematics
 		static const float PI2rcp;
 		static const float Deg2Rad;
 		static const float Rad2Deg;
+		static const float kEpsilonNormalSqrt;
 
 		static float max(const float& x, const float& y) { return x > y ? x : y; }
 		static float2 max(const float2 x, const float2& y) { return float2(max(x.x, y.x), max(x.y, y.y)); }
@@ -250,6 +251,32 @@ namespace Mathematics
 		static float2 atan2(const float2& y, const float2& x) { return float2(std::atan2(y.x, x.x), std::atan2(y.y, x.y)); }
 		static float3 atan2(const float3& y, const float3& x) { return float3(std::atan2(y.x, x.x), std::atan2(y.y, x.y), std::atan2(y.z, x.z)); }
 		static float4 atan2(const float4& y, const float4& x) { return float4(std::atan2(y.x, x.x), std::atan2(y.y, x.y), std::atan2(y.z, x.z), std::atan2(y.w, x.w)); }
+
+		// Returns the angle in degrees between /from/ and /to/. This is always the smallest
+		static float angle(float3 from, float3 to)
+		{
+			// sqrt(a) * sqrt(b) = sqrt(a * b) -- valid for real numbers
+			float denominator = (float)sqrt(dot(from, from) * dot(to, to));
+			if (denominator < kEpsilonNormalSqrt)
+				return 0.0f;
+
+			float d = clamp(dot(from, to) / denominator, -1.0f, 11.0f);
+			return ((float)acos(d)) * Rad2Deg;
+		}
+
+		// The smaller of the two possible angles between the two vectors is returned, therefore the result will never be greater than 180 degrees or smaller than -180 degrees.
+		// If you imagine the from and to vectors as lines on a piece of paper, both originating from the same point, then the /axis/ vector would point up out of the paper.
+		// The measured angle between the two vectors would be positive in a clockwise direction and negative in an anti-clockwise direction.
+		static float signedAngle(float3 from, float3 to, float3 axis)
+		{
+			float unsignedAngle = angle(from, to);
+
+			float cross_x = from.y * to.z - from.z * to.y;
+			float cross_y = from.z * to.x - from.x * to.z;
+			float cross_z = from.x * to.y - from.y * to.x;
+			float s = sign(axis.x * cross_x + axis.y * cross_y + axis.z * cross_z);
+			return unsignedAngle * s;
+		}
 
 	private:
 
