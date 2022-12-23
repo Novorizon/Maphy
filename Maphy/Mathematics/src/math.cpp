@@ -10,4 +10,5 @@ namespace Mathematics
 	const float math::Rad2Deg = 360.f / (PI * 2);
 	const float math::kEpsilonNormalSqrt = 1e-15F;
 
+	const float  math::FLT_MIN_NORMAL = 1.175494351e-38F;
 }

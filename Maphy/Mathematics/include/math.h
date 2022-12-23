@@ -18,6 +18,27 @@ namespace Mathematics
 		static const float Rad2Deg;
 		static const float kEpsilonNormalSqrt;
 
+		static const float FLT_MIN_NORMAL ;
+
+		/// <summary>Extrinsic rotation order. Specifies in which order rotations around the principal axes (x, y and z) are to be applied.</summary>
+		enum RotationOrder
+		{
+			/// <summary>Extrinsic rotation around the x axis, then around the y axis and finally around the z axis.</summary>
+			XYZ,
+			/// <summary>Extrinsic rotation around the x axis, then around the z axis and finally around the y axis.</summary>
+			XZY,
+			/// <summary>Extrinsic rotation around the y axis, then around the x axis and finally around the z axis.</summary>
+			YXZ,
+			/// <summary>Extrinsic rotation around the y axis, then around the z axis and finally around the x axis.</summary>
+			YZX,
+			/// <summary>Extrinsic rotation around the z axis, then around the x axis and finally around the y axis.</summary>
+			ZXY,
+			/// <summary>Extrinsic rotation around the z axis, then around the y axis and finally around the x axis.</summary>
+			ZYX,
+			/// <summary>Unity default rotation order. Extrinsic Rotation around the z axis, then around the x axis and finally around the y axis.</summary>
+			Default = ZXY
+		};
+
 		static float max(const float& x, const float& y) { return x > y ? x : y; }
 		static float2 max(const float2 x, const float2& y) { return float2(max(x.x, y.x), max(x.y, y.y)); }
 		static float3 max(const float3 x, const float3& y) { return float3(max(x.x, y.x), max(x.y, y.y), max(x.z, y.z)); }

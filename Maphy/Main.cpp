@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Mathematica/include/quaternion.h"
 #include "Mathematics/include/math.h"
+#include "Mathematics/include/quaternion.h"
 using namespace std;
 //using maths = Mathematics::math;
 using math = Mathematica::math;
@@ -80,7 +81,9 @@ int main()
 	int64_t asd = aaaa.Value();
 	string str2 = aaaa.ToString();
 	cout << (fix(1 / bbb)).ToString() << endl;
-	quaternion q = quaternion(0, 0, 0, 1);
+	Mathematics::quaternion q = Mathematics::quaternion(0, 0, 0, 1);
+	Mathematics::quaternion q1 = Mathematics::quaternion(0, 0, 0, 1);
+	q = q * q1;
 
 	fix maxValue = fix::Raw(Mathematica::MAX_VALUE);//140737488355327->2147483647 32位最大值 
 

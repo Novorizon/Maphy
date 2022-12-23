@@ -61,6 +61,33 @@ namespace Mathematica
 
 
 	fix3 quaternion::forward(quaternion q) { return mul(q, fix3(0, 0, 1)); }
+	
+		// quaternion quaternion::AxisAngle(float3 axis, float angle)
+		//{
+		//	float sina, cosa;
+		//	math::sincos(0.5f * angle, sina, cosa);
+		//	axis = axis * sina;
+		//	return quaternion(float4(axis.x, axis.y, axis.z, cosa));
+		//}
 
+		///// <summary>
+		///// Returns a quaternion constructed by first performing a rotation around the x-axis, then the y-axis and finally the z-axis.
+		///// All rotation angles are in radians and clockwise when looking along the rotation axis towards the origin.
+		///// </summary>
+		///// <param name="xyz">A float3 vector containing the rotation angles around the x-, y- and z-axis measures in radians.</param>
+		///// <returns>The quaternion representing the Euler angle rotation in x-y-z order.</returns>
+		// quaternion quaternion::EulerXYZ(float3 xyz)
+		//{
+		//	// return mul(rotateZ(xyz.z), mul(rotateY(xyz.y), rotateX(xyz.x)));
+		//	float3 s, c;
+		//	math::sincos(0.5f * xyz,  s,  c);
+		//	return quaternion(
+		//		// s.x * c.y * c.z - s.y * s.z * c.x,
+		//		// s.y * c.x * c.z + s.x * s.z * c.y,
+		//		// s.z * c.x * c.y - s.x * s.y * c.z,
+		//		// c.x * c.y * c.z + s.y * s.z * s.x
+		//		float4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * float4(c.xyz, s.x) * float4(-1.0f, 1.0f, -1.0f, 1.0f)
+		//	);
+		//}
 
 }

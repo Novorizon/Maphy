@@ -9,116 +9,12 @@ namespace Mathematics
 	{
 	public:
 		float4 value;
-
+		static const	quaternion identity;
 		quaternion(float4 q) { value = q; }
 
 		quaternion(float x, float y, float z, float w) { value.x = x; value.y = y; value.z = z; value.w = w; }
-
-		quaternion(float3x3 matrix)
-		{
-			float m00 = matrix.c0.x;
-			float m01 = matrix.c1.x;
-			float m02 = matrix.c2.x;
-
-			float m10 = matrix.c0.y;
-			float m11 = matrix.c1.y;
-			float m12 = matrix.c2.y;
-
-			float m20 = matrix.c0.z;
-			float m21 = matrix.c1.z;
-			float m22 = matrix.c2.z;
-			float tr = m00 + m11 + m22;
-
-			if (tr > 0)
-			{
-				float S = math::sqrt(tr + 1) * 2; // S=4*qw 
-				value.w = 0.25f * S;
-				value.x = (m21 - m12) / S;
-				value.y = (m02 - m20) / S;
-				value.z = (m10 - m01) / S;
-			}
-			else if ((m00 > m11) && (m00 > m22))
-			{
-				float S = math::sqrt(1.0f + m00 - m11 - m22) * 2; // S=4*qx 
-				value.w = (m21 - m12) / S;
-				value.x = 0.25f * S;
-				value.y = (m01 + m10) / S;
-				value.z = (m02 + m20) / S;
-			}
-			else if (m11 > m22)
-			{
-				float S = math::sqrt(1.0f + m11 - m00 - m22) * 2; // S=4*qy
-				value.w = (m02 - m20) / S;
-				value.x = (m01 + m10) / S;
-				value.y = 0.25f * S;
-				value.z = (m12 + m21) / S;
-			}
-			else
-			{
-				float S = math::sqrt(1.0f + m22 - m00 - m11) * 2; // S=4*qz
-				value.w = (m10 - m01) / S;
-				value.x = (m02 + m20) / S;
-				value.y = (m12 + m21) / S;
-				value.z = 0.25f * S;
-			}
-
-			value = math::normalize(value);
-		}
-
-		quaternion(float4x4 matrix)
-		{
-			float m00 = matrix.c0.x;
-			float m01 = matrix.c1.x;
-			float m02 = matrix.c2.x;
-
-			float m10 = matrix.c0.y;
-			float m11 = matrix.c1.y;
-			float m12 = matrix.c2.y;
-
-			float m20 = matrix.c0.z;
-			float m21 = matrix.c1.z;
-			float m22 = matrix.c2.z;
-			float tr = m00 + m11 + m22;
-
-			if (tr > 0)
-			{
-				float S = math::sqrt(tr + 1.0f) * 2; // S=4*qw 
-				float Srcp = 1.0f / S;
-				value.w = 0.25f * S;
-				value.x = (m21 - m12) * Srcp;
-				value.y = (m02 - m20) * Srcp;
-				value.z = (m10 - m01) * Srcp;
-			}
-			else if ((m00 > m11) && (m00 > m22))
-			{
-				float S = math::sqrt(1.0f + m00 - m11 - m22) * 2; // S=4*qx 
-				float Srcp = 1.0f / S;
-				value.w = (m21 - m12) * Srcp;
-				value.x = 0.25f * S;
-				value.y = (m01 + m10) * Srcp;
-				value.z = (m02 + m20) * Srcp;
-			}
-			else if (m11 > m22)
-			{
-				float S = math::sqrt(1.0f + m11 - m00 - m22) * 2; // S=4*qy
-				float Srcp = 1 / S;
-				value.w = (m02 - m20) * Srcp;
-				value.x = (m01 + m10) * Srcp;
-				value.y = 0.25f * S;
-				value.z = (m12 + m21) * Srcp;
-			}
-			else
-			{
-				float S = math::sqrt(1.0f + m22 - m00 - m11) * 2; // S=4*qz
-				float Srcp = 1.0f / S;
-				value.w = (m10 - m01) * Srcp;
-				value.x = (m02 + m20) * Srcp;
-				value.y = (m12 + m21) * Srcp;
-				value.z = 0.25f * S;
-			}
-
-			value = math::normalize(value);
-		}
+		quaternion(float3x3 matrix);
+		quaternion(float4x4 matrix);
 
 		friend quaternion operator *(quaternion lhs, quaternion rhs)
 		{
@@ -145,10 +41,106 @@ namespace Mathematics
 		static float length(quaternion q);
 		static float lengthsq(quaternion q);
 		static float3 mul(quaternion q, float3 v);
+		static quaternion mul(quaternion a, quaternion b);
 		static float3 rotate(quaternion q, float3 v);
 		static quaternion nlerp(quaternion q1, quaternion q2, float t);
 		static float3 forward(quaternion q);
 		static quaternion slerp(quaternion q1, quaternion q2, float t);
+
+		/// <summary>
+		/// Returns a safe normalized version of the q by scaling it by 1 / length(q).
+		/// Returns the identity when 1 / length(q) does not produce a finite number.
+		/// <summary>
+		/// <param name="q">The quaternion to normalize.</param>
+		/// <returns>The normalized quaternion or the identity quaternion.</returns>
+		static quaternion normalizesafe(quaternion q);
+
+		/// <summary>
+		/// Returns a safe normalized version of the q by scaling it by 1 / length(q).
+		/// Returns the given default value when 1 / length(q) does not produce a finite number.
+		/// </summary>
+		/// <param name="q">The quaternion to normalize.</param>
+		/// <param name="defaultvalue">The default value.</param>
+		/// <returns>The normalized quaternion or the default value.</returns>
+		static quaternion normalizesafe(quaternion q, quaternion defaultvalue);
+
+
+		/// <summary>
+		/// Returns a quaternion representing a rotation around a unit axis by an angle in radians.
+		/// The rotation direction is clockwise when looking along the rotation axis towards the origin.
+		/// </summary>
+		/// <param name="axis">The axis of rotation.</param>
+		/// <param name="angle">The angle of rotation in radians.</param>
+		/// <returns>The quaternion representing a rotation around an axis.</returns>
+		static quaternion AxisAngle(float3 axis, float angle);
+
+		/// <summary>
+		/// Returns a quaternion constructed by first performing a rotation around the x-axis, then the y-axis and finally the z-axis.
+		/// All rotation angles are in radians and clockwise when looking along the rotation axis towards the origin.
+		/// </summary>
+		/// <param name="xyz">A float3 vector containing the rotation angles around the x-, y- and z-axis measures in radians.</param>
+		/// <returns>The quaternion representing the Euler angle rotation in x-y-z order.</returns>
+		static quaternion EulerXYZ(float3 xyz);
+		static quaternion EulerXZY(float3 xyz);
+		static quaternion EulerYXZ(float3 xyz);
+		static quaternion EulerYZX(float3 xyz);
+		static quaternion EulerZXY(float3 xyz);
+		static quaternion EulerZYX(float3 xyz);
+
+		static quaternion  EulerXYZ(float x, float y, float z) { return EulerXYZ(float3(x, y, z)); }
+		static quaternion  EulerXZY(float x, float y, float z) { return EulerXZY(float3(x, y, z)); }
+		static quaternion  EulerYXZ(float x, float y, float z) { return EulerYXZ(float3(x, y, z)); }
+		static quaternion  EulerYZX(float x, float y, float z) { return EulerYZX(float3(x, y, z)); }
+		static quaternion  EulerZXY(float x, float y, float z) { return EulerZXY(float3(x, y, z)); }
+		static quaternion  EulerZYX(float x, float y, float z) { return EulerZYX(float3(x, y, z)); }
+
+		/// <summary>
+		/// Returns a quaternion constructed by first performing 3 rotations around the principal axes in a given order.
+		/// All rotation angles are in radians and clockwise when looking along the rotation axis towards the origin.
+		/// When the rotation order is known at compile time, it is recommended for performance reasons to use specific
+		/// Euler rotation constructors such as EulerZXY(...).
+		/// </summary>
+		/// <param name="xyz">A float3 vector containing the rotation angles around the x-, y- and z-axis measures in radians.</param>
+		/// <param name="order">The order in which the rotations are applied.</param>
+		/// <returns>The quaternion representing the Euler angle rotation in the specified order.</returns>
+		static quaternion Euler(float3 xyz, math::RotationOrder order = math::RotationOrder::ZXY);
+		static quaternion Euler(float x, float y, float z, math::RotationOrder order = math::RotationOrder::ZXY) { return Euler(float3(x, y, z), order); }
+
+		static quaternion RotateX(float angle);
+
+		/// <summary>Returns a quaternion that rotates around the y-axis by a given number of radians.</summary>
+		/// <param name="angle">The clockwise rotation angle when looking along the y-axis towards the origin in radians.</param>
+		/// <returns>The quaternion representing a rotation around the y-axis.</returns>
+		static quaternion RotateY(float angle);
+
+		/// <summary>Returns a quaternion that rotates around the z-axis by a given number of radians.</summary>
+		/// <param name="angle">The clockwise rotation angle when looking along the z-axis towards the origin in radians.</param>
+		/// <returns>The quaternion representing a rotation around the z-axis.</returns>
+		static quaternion RotateZ(float angle);
+
+
+		/// <summary>
+		/// Returns a quaternion view rotation given a unit length forward vector and a unit length up vector.
+		/// The two input vectors are assumed to be unit length and not collinear.
+		/// If these assumptions are not met use float3x3.LookRotationSafe instead.
+		/// </summary>
+		/// <param name="forward">The view forward direction.</param>
+		/// <param name="up">The view up direction.</param>
+		/// <returns>The quaternion view rotation.</returns>
+		static quaternion LookRotation(float3 forward, float3 up);
+
+		/// <summary>
+		/// Returns a quaternion view rotation given a forward vector and an up vector.
+		/// The two input vectors are not assumed to be unit length.
+		/// If the magnitude of either of the vectors is so extreme that the calculation cannot be carried out reliably or the vectors are collinear,
+		/// the identity will be returned instead.
+		/// </summary>
+		/// <param name="forward">The view forward direction.</param>
+		/// <param name="up">The view up direction.</param>
+		/// <returns>The quaternion view rotation or the identity quaternion.</returns>
+		static quaternion LookRotationSafe(float3 forward, float3 up);
+
+		bool Equals(quaternion x) { return value.x == x.value.x && value.y == x.value.y && value.z == x.value.z && value.w == x.value.w; }
 
 		const float& operator[](int i) const
 		{
