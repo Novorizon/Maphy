@@ -16,6 +16,9 @@ namespace Mathematics
 		quaternion(float3x3 matrix);
 		quaternion(float4x4 matrix);
 
+
+		float3 EulerAngles();
+
 		friend quaternion operator *(quaternion lhs, quaternion rhs)
 		{
 			return quaternion(
@@ -72,7 +75,14 @@ namespace Mathematics
 		/// <param name="axis">The axis of rotation.</param>
 		/// <param name="angle">The angle of rotation in radians.</param>
 		/// <returns>The quaternion representing a rotation around an axis.</returns>
+		/// 参数为弧度，旋转轴为看向起点的顺时针
 		static quaternion AxisAngle(float3 axis, float angle);
+
+		/// 参数为角度，旋转轴为看向起点的顺时针
+		static quaternion Axis(float3 axis, float angle);
+
+		/// 参数为角度，旋转轴为看向起点的顺时针
+		static quaternion AxisDegrees(float3 axis, float angle) { return Axis(axis, angle); };
 
 		/// <summary>
 		/// Returns a quaternion constructed by first performing a rotation around the x-axis, then the y-axis and finally the z-axis.
@@ -80,6 +90,7 @@ namespace Mathematics
 		/// </summary>
 		/// <param name="xyz">A float3 vector containing the rotation angles around the x-, y- and z-axis measures in radians.</param>
 		/// <returns>The quaternion representing the Euler angle rotation in x-y-z order.</returns>
+		/// 参数为弧度
 		static quaternion EulerXYZ(float3 xyz);
 		static quaternion EulerXZY(float3 xyz);
 		static quaternion EulerYXZ(float3 xyz);
@@ -164,6 +175,16 @@ namespace Mathematics
 		}
 
 		float3 xyz() { return float3(value.x, value.y, value.z); }
+	private:
+
+		// Makes euler angles positive 0/360 with 0.0001 hacked to support old behaviour of QuaternionToEuler
+		static float3 Positive(float3 euler);
+		void MakePositive(float3& euler);
+
+		float3 QuaternionToEuler(const quaternion& quat);
+		float3x3 QuaternionToMatrix(const quaternion& quaternion, float3x3& mm);
+		float3 MatrixToEuler(const float3x3& matrix);
+		//float3x3 TRS(quaternion r);
 	};
 
 

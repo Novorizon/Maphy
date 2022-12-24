@@ -3,10 +3,13 @@
 #include "float2.h"
 #include "float3.h"
 #include "float4.h"
+#include "float4x4.h"
+//#include "quaternion.h"
 //#include "float3x3.h"
 //#include "float4x4.h"
 namespace Mathematics
 {
+	class quaternion;
 	class math
 	{
 	public:
@@ -18,7 +21,7 @@ namespace Mathematics
 		static const float Rad2Deg;
 		static const float kEpsilonNormalSqrt;
 
-		static const float FLT_MIN_NORMAL ;
+		static const float FLT_MIN_NORMAL;
 
 		/// <summary>Extrinsic rotation order. Specifies in which order rotations around the principal axes (x, y and z) are to be applied.</summary>
 		enum RotationOrder
@@ -299,6 +302,28 @@ namespace Mathematics
 			return unsignedAngle * s;
 		}
 
+
+	/*	static float4x4 TRS(float3 t, quaternion r, float3 s)
+		{
+			float4x4 result(0);
+			result.c0.x = (1 - 2 * (r.value.y * r.value.y + r.value.z * r.value.z)) * s.x;
+			result.c0.y = (r.value.x * r.value.y + r.value.z * r.value.w) * s.x * 2;
+			result.c0.z = (r.value.x * r.value.z - r.value.y * r.value.w) * s.x * 2;
+			result.c0.w = 0;
+			result.c1.x = (r.value.x * r.value.y - r.value.z * r.value.w) * s.y * 2;
+			result.c1.y = (1 - 2 * (r.value.x * r.value.x + r.value.z * r.value.z)) * s.y;
+			result.c1.z = (r.value.y * r.value.z + r.value.x * r.value.w) * s.y * 2;
+			result.c1.w = 0;
+			result.c2.x = (r.value.x * r.value.z + r.value.y * r.value.w) * s.z * 2;
+			result.c2.y = (r.value.y * r.value.z - r.value.x * r.value.w) * s.z * 2;
+			result.c2.z = (1 - 2 * (r.value.x * r.value.x + r.value.y * r.value.y)) * s.z;
+			result.c2.w = 0;
+			result.c3.x = t.x;
+			result.c3.y = t.y;
+			result.c3.z = t.z;
+			result.c3.w = 1;
+			return result;
+		}*/
 	private:
 
 		union IntFloatUnion

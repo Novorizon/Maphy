@@ -83,8 +83,9 @@ int main()
 	cout << (fix(1 / bbb)).ToString() << endl;
 	Mathematics::quaternion q = Mathematics::quaternion(0, 0, 0, 1);
 	Mathematics::quaternion q1 = Mathematics::quaternion(0, 0, 0, 1);
-	q = q * q1;
-
+	q= Mathematics::quaternion::Euler(1.56, 1.62, 59.23);
+	quaternion(0.01881894f, 0.005562271f, 0.493907f, 0.8692933f);
+	auto angle=q.EulerAngles();
 	fix maxValue = fix::Raw(Mathematica::MAX_VALUE);//140737488355327->2147483647 32位最大值 
 
 
