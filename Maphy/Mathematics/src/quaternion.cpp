@@ -3,7 +3,6 @@
 #pragma optimize("",off)
 namespace Mathematics
 {
-#define kPI 3.14159265358979323846264338327950288419716939937510F
 
 	const quaternion quaternion::identity = quaternion(0, 0, 0, 1);
 
@@ -113,7 +112,7 @@ namespace Mathematics
 		value = math::normalize(value);
 	}
 
-	float3 quaternion::EulerAngles()
+	float3 quaternion::ToEuler()
 	{
 		return MakeDegreePositive(QuaternionToEuler(normalizesafe(*this)) * math::Rad2Deg);
 	}
@@ -196,17 +195,8 @@ namespace Mathematics
 		return quaternion(float4(axis.x, axis.y, axis.z, cosa));
 	}
 
-	quaternion quaternion::Axis(float3 axis, float angle)
-	{
-		float sina, cosa;
-		math::sincos(0.5f * angle * math::Deg2Rad, sina, cosa);
-		axis = axis * sina;
-		return quaternion(float4(axis.x, axis.y, axis.z, cosa));
-	}
-
 	quaternion quaternion::EulerXYZ(float3 xyz)
 	{
-		// return mul(rotateZ(xyz.z), mul(rotateY(xyz.y), rotateX(xyz.x)));
 		float3 s, c;
 		math::sincos(0.5f * xyz, s, c);
 		return quaternion(
@@ -219,7 +209,6 @@ namespace Mathematics
 
 	quaternion quaternion::EulerXZY(float3 xyz)
 	{
-		// return mul(rotateY(xyz.y), mul(rotateZ(xyz.z), rotateX(xyz.x)));
 		float3 s, c;
 		math::sincos(0.5f * xyz, s, c);
 		return quaternion(
@@ -232,7 +221,6 @@ namespace Mathematics
 
 	quaternion quaternion::EulerYXZ(float3 xyz)
 	{
-		// return mul(rotateZ(xyz.z), mul(rotateX(xyz.x), rotateY(xyz.y)));
 		float3 s, c;
 		math::sincos(0.5f * xyz, s, c);
 		return quaternion(
@@ -245,7 +233,6 @@ namespace Mathematics
 
 	quaternion quaternion::EulerYZX(float3 xyz)
 	{
-		// return mul(rotateX(xyz.x), mul(rotateZ(xyz.z), rotateY(xyz.y)));
 		float3 s, c;
 		math::sincos(0.5f * xyz, s, c);
 		return quaternion(
@@ -258,47 +245,30 @@ namespace Mathematics
 
 	quaternion quaternion::EulerZXY(float3 xyz)
 	{
-		// return mul(rotateZ(xyz.z), mul(rotateX(xyz.x), rotateY(xyz.y)));
 		float3 s, c;
-		math::sincos(0.5f * xyz * math::Deg2Rad, s, c);
-		float3 sxyz = float3(s.x, s.y, s.z);
-		float4 syxxy = float4(s.y, s.x, s.x, s.y);
-		float4 szzyz = float4(s.z, s.z, s.y, s.z);
+		math::sincos(0.5f * xyz, s, c);
 
-		float4 cyxxy = float4(c.y, c.x, c.x, c.y);
-		float4 czzyz = float4(c.z, c.z, c.y, c.z);
-		float3 cxyz = float3(c.x, c.y, c.z);
-
-		float4 a = float4(sxyz.x, sxyz.y, sxyz.z, c.x);
-		a = a * cyxxy * czzyz;
-
-		float4 b = float4(cxyz.x, cxyz.y, cxyz.z, s.x);
-		b = syxxy * szzyz * b;
-
-		//float4 c = float4(1.0f, -1.0f, -1.0f, 1.0f);
-		float4 d = a + b * float4(1.0f, -1.0f, -1.0f, 1.0f);
-		//float4(sxyz, c.x) * cyxxy * czzyz + syxxy * szzyz * float4(cxyz, s.x) * float4(1.0f, -1.0f, -1.0f, 1.0f)
-		return quaternion(d
-			/*		s.x * c.y * c.z - s.y * s.z * c.x,
-					s.y * c.x * c.z + s.x * s.z * c.y,
-					s.z * c.x * c.y + s.x * s.y * c.z,
-					c.x * c.y * c.z - s.y * s.z * s.x*/
+		return quaternion(
+			s.x * c.y * c.z + s.y * s.z * c.x,
+			s.y * c.x * c.z - s.x * s.z * c.y,
+			s.z * c.x * c.y - s.x * s.y * c.z,
+			c.x * c.y * c.z + s.y * s.z * s.x
 		);
 	}
 
 	quaternion quaternion::EulerZYX(float3 xyz)
 	{
-		// return mul(rotateX(xyz.x), mul(rotateZ(xyz.z), rotateY(xyz.y)));
 		float3 s, c;
-		math::sincos(0.5f * xyz, s, c);
+		math::sincos(0.5f * xyz * math::Deg2Rad, s, c);
 		return quaternion(
-			s.x * c.y * c.z - s.y * s.z * c.x,
+			s.x * c.y * c.z + s.y * s.z * c.x,
 			s.y * c.x * c.z - s.x * s.z * c.y,
 			s.z * c.x * c.y + s.x * s.y * c.z,
-			c.x * c.y * c.z + s.y * s.z * s.x
+			c.x * c.y * c.z - s.y * s.z * s.x
 		);
 	}
 
+	//»¡¶È
 	quaternion quaternion::Euler(float3 xyz, math::RotationOrder order)
 	{
 		switch (order)
@@ -385,9 +355,9 @@ namespace Mathematics
 		else
 			return q / mag;
 
-	/*	float4 x = q.value;
-		float len = math::dot(x, x);
-		return quaternion(math::select(identity.value, x * math::rsqrt(len), len > math::PI));*/
+		/*	float4 x = q.value;
+			float len = math::dot(x, x);
+			return quaternion(math::select(identity.value, x * math::rsqrt(len), len > math::PI));*/
 	}
 
 	quaternion quaternion::normalizesafe(quaternion q, quaternion defaultvalue)
@@ -537,21 +507,21 @@ namespace Mathematics
 	void quaternion::MakeRadianPositive(float3& euler)
 	{
 		const float negativeFlip = -0.0001F;
-		const float positiveFlip = (kPI * 2.0F) - 0.0001F;
+		const float positiveFlip = (math::PI * 2.0F) - 0.0001F;
 
 		if (euler.x < negativeFlip)
-			euler.x += 2.0 * kPI;
+			euler.x += 2.0 * math::PI;
 		else if (euler.x > positiveFlip)
-			euler.x -= 2.0 * kPI;
+			euler.x -= 2.0 * math::PI;
 
 		if (euler.y < negativeFlip)
-			euler.y += 2.0 * kPI;
+			euler.y += 2.0 * math::PI;
 		else if (euler.y > positiveFlip)
-			euler.y -= 2.0 * kPI;
+			euler.y -= 2.0 * math::PI;
 
 		if (euler.z < negativeFlip)
-			euler.z += 2.0 * kPI;
+			euler.z += 2.0 * math::PI;
 		else if (euler.z > positiveFlip)
-			euler.z -= 2.0 * kPI;
+			euler.z -= 2.0 * math::PI;
 	}
 }

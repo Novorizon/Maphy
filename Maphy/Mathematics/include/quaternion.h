@@ -17,8 +17,6 @@ namespace Mathematics
 		quaternion(float4x4 matrix);
 
 
-		float3 EulerAngles();
-
 		friend quaternion operator *(quaternion lhs, quaternion rhs)
 		{
 			return quaternion(
@@ -38,6 +36,9 @@ namespace Mathematics
 		friend quaternion operator / (const quaternion& q, const float s) { if (s == 0)return quaternion::identity; return quaternion(q.value / s); }
 		friend bool operator ==(quaternion a, quaternion b) { return a.value.x == b.value.x && a.value.y == b.value.y && a.value.z == b.value.z && a.value.w == b.value.w; }
 		friend bool operator !=(quaternion a, quaternion b) { return a.value.x != b.value.x || a.value.y != b.value.y || a.value.z != b.value.z || a.value.w != b.value.w; }
+
+		//返回角度
+		float3 ToEuler();
 
 		static quaternion conjugate(quaternion q);
 		static quaternion normalize(quaternion q);
@@ -81,10 +82,8 @@ namespace Mathematics
 		static quaternion AxisAngle(float3 axis, float angle);
 
 		/// 参数为角度，旋转轴为看向起点的顺时针
-		static quaternion Axis(float3 axis, float angle);
-
-		/// 参数为角度，旋转轴为看向起点的顺时针
-		static quaternion AxisDegrees(float3 axis, float angle) { return Axis(axis, angle); };
+		static quaternion Axis(float3 axis, float angle) { return AxisAngle(axis, angle * math::Deg2Rad); };
+		static quaternion AxisDegree(float3 axis, float angle) { return AxisAngle(axis, angle * math::Deg2Rad); };
 
 		/// <summary>
 		/// Returns a quaternion constructed by first performing a rotation around the x-axis, then the y-axis and finally the z-axis.
@@ -116,8 +115,16 @@ namespace Mathematics
 		/// <param name="xyz">A float3 vector containing the rotation angles around the x-, y- and z-axis measures in radians.</param>
 		/// <param name="order">The order in which the rotations are applied.</param>
 		/// <returns>The quaternion representing the Euler angle rotation in the specified order.</returns>
+		//弧度
 		static quaternion Euler(float3 xyz, math::RotationOrder order = math::RotationOrder::ZXY);
 		static quaternion Euler(float x, float y, float z, math::RotationOrder order = math::RotationOrder::ZXY) { return Euler(float3(x, y, z), order); }
+
+		//角度
+		static quaternion FromEuler(float3 xyz, math::RotationOrder order = math::RotationOrder::ZXY) { return Euler(xyz * math::Deg2Rad, order); }
+		static quaternion FromEuler(float x, float y, float z, math::RotationOrder order = math::RotationOrder::ZXY) { return FromEuler(float3(x, y, z), order); }
+
+		//返回角度
+		static float3 ToEuler(quaternion& q) { return q.ToEuler(); }
 
 		static quaternion RotateX(float angle);
 

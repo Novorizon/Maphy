@@ -9,7 +9,8 @@
 //#include "float4x4.h"
 namespace Mathematics
 {
-	class quaternion;
+	//#define kPI 3.14159265358979323846264338327950288419716939937510F
+	//class quaternion;
 	class math
 	{
 	public:

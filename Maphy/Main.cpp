@@ -90,9 +90,9 @@ int main()
 
 	Mathematics::quaternion q = Mathematics::quaternion(0, 0, 0, 1);
 	Mathematics::quaternion q1 = Mathematics::quaternion(0, 0, 0, 1);
-	q= Mathematics::quaternion::Euler(1.56, 1.62, 59.23);
+	q= Mathematics::quaternion::FromEuler(1.56, 1.62, 59.23);
 	quaternion(0.01881894f, 0.005562271f, 0.493907f, 0.8692933f);
-	auto angle=q.EulerAngles();
+	auto angle=q.ToEuler();
 	fix maxValue = fix::Raw(Mathematica::MAX_VALUE);//140737488355327->2147483647 32位最大值 
 	//{x = 357.810028 y = 0.511404157 z = 300.782288 }
 	std::cout << q.value.x << std::endl;
