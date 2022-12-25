@@ -81,6 +81,26 @@ namespace Mathematics
 			}
 		}
 
+		float& operator[](int i)
+		{
+			switch (i)
+			{
+			case 0:
+				return x;
+				break;
+			case 1:
+				return y;
+				break;
+			case 2:
+				return z;
+				break;
+			default:
+				//float result = float::MaxValue;
+				//return MaxValue;
+				break;
+			}
+		}
+
 		std::string ToString()const
 		{
 			std::stringstream ss;

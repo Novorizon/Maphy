@@ -9,6 +9,7 @@ namespace Mathematics
 	const float math::Deg2Rad = PI * 2.0f / 360.0f; //0.0174533f;
 	const float math::Rad2Deg = 360.0f / (PI * 2.0f);//1F / Deg2Rad;
 	const float math::kEpsilonNormalSqrt = 1e-15F;
+	const float math::Epsilon = 0.00001F;
 
 	const float  math::FLT_MIN_NORMAL = 1.175494351e-38F;
 }

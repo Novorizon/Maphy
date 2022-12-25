@@ -20,6 +20,7 @@ namespace Mathematics
 		static const float Deg2Rad;
 		static const float Rad2Deg;
 		static const float kEpsilonNormalSqrt;
+		static const float Epsilon;
 
 		static const float FLT_MIN_NORMAL;
 

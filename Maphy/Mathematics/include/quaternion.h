@@ -9,7 +9,7 @@ namespace Mathematics
 	{
 	public:
 		float4 value;
-		static const	quaternion identity;
+		static const quaternion identity;
 		quaternion(float4 q) { value = q; }
 
 		quaternion(float x, float y, float z, float w) { value.x = x; value.y = y; value.z = z; value.w = w; }
@@ -34,6 +34,8 @@ namespace Mathematics
 			return v + q.value.w * t + math::cross(q.xyz(), t);
 		}
 
+
+		friend quaternion operator / (const quaternion& q, const float s) { if (s == 0)return quaternion::identity; return quaternion(q.value / s); }
 		friend bool operator ==(quaternion a, quaternion b) { return a.value.x == b.value.x && a.value.y == b.value.y && a.value.z == b.value.z && a.value.w == b.value.w; }
 		friend bool operator !=(quaternion a, quaternion b) { return a.value.x != b.value.x || a.value.y != b.value.y || a.value.z != b.value.z || a.value.w != b.value.w; }
 
@@ -56,7 +58,7 @@ namespace Mathematics
 		/// <summary>
 		/// <param name="q">The quaternion to normalize.</param>
 		/// <returns>The normalized quaternion or the identity quaternion.</returns>
-		static quaternion normalizesafe(quaternion q);
+		static quaternion normalizesafe(const quaternion& q);
 
 		/// <summary>
 		/// Returns a safe normalized version of the q by scaling it by 1 / length(q).
@@ -178,13 +180,16 @@ namespace Mathematics
 	private:
 
 		// Makes euler angles positive 0/360 with 0.0001 hacked to support old behaviour of QuaternionToEuler
-		static float3 Positive(float3 euler);
-		void MakePositive(float3& euler);
+		inline static float3 MakeDegreePositive(float3 euler);
+		inline void MakeRadianPositive(float3& euler);
 
-		float3 QuaternionToEuler(const quaternion& quat);
-		float3x3 QuaternionToMatrix(const quaternion& quaternion, float3x3& mm);
-		float3 MatrixToEuler(const float3x3& matrix);
+		inline float3 QuaternionToEuler(const quaternion& quat);
+		inline float3x3 QuaternionToMatrix(const quaternion& quaternion);
+		inline float3 MatrixToEuler(const float3x3& matrix);
+		inline float3x3 EulerToMatrix(const float3& v);
 		//float3x3 TRS(quaternion r);
+
+		//inline quaternion NormalizeSafe(const quaternion& q);
 	};
 
 

@@ -10,6 +10,14 @@ namespace Mathematics
 		float3 c1;
 		float3 c2;
 
+
+		float3x3()
+		{
+			c0 = float3();
+			c1 = float3();
+			c2 = float3();
+		}
+
 		float3x3(float3 col0, float3 col1, float3 col2)
 		{
 			c0 = col0;
@@ -47,6 +55,24 @@ namespace Mathematics
 		friend bool operator !=(float3x3 lhs, float3x3 rhs) { return lhs.c0 != rhs.c0 || lhs.c1 != rhs.c1 || lhs.c2 != rhs.c2; };
 
 		const float3& operator[](int i) const
+		{
+			switch (i)
+			{
+			case 0:
+				return c0;
+				break;
+			case 1:
+				return c1;
+				break;
+			case 2:
+				return c2;
+				break;
+			default:
+				break;
+			}
+		}
+
+		float3& operator[](int i)
 		{
 			switch (i)
 			{

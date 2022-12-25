@@ -1,6 +1,6 @@
 #pragma once
 #include "../include/quaternion.h"
-
+#pragma optimize("",off)
 namespace Mathematics
 {
 #define kPI 3.14159265358979323846264338327950288419716939937510F
@@ -115,9 +115,8 @@ namespace Mathematics
 
 	float3 quaternion::EulerAngles()
 	{
-		return Positive(QuaternionToEuler(normalizesafe(*this)) * math::Rad2Deg);
+		return MakeDegreePositive(QuaternionToEuler(normalizesafe(*this)) * math::Rad2Deg);
 	}
-
 
 	quaternion quaternion::conjugate(quaternion q) { return quaternion(q.value * float4(-1, -1, -1, 1)); }
 
@@ -261,15 +260,15 @@ namespace Mathematics
 	{
 		// return mul(rotateZ(xyz.z), mul(rotateX(xyz.x), rotateY(xyz.y)));
 		float3 s, c;
-		math::sincos(0.5f * xyz*math::Deg2Rad, s, c);
+		math::sincos(0.5f * xyz * math::Deg2Rad, s, c);
 		float3 sxyz = float3(s.x, s.y, s.z);
-		float4 syxxy = float4(s.y, s.x, s.x,s.y);
+		float4 syxxy = float4(s.y, s.x, s.x, s.y);
 		float4 szzyz = float4(s.z, s.z, s.y, s.z);
 
-		float4 cyxxy = float4(c.y, c.x, c.x,c.y);
+		float4 cyxxy = float4(c.y, c.x, c.x, c.y);
 		float4 czzyz = float4(c.z, c.z, c.y, c.z);
 		float3 cxyz = float3(c.x, c.y, c.z);
-	
+
 		float4 a = float4(sxyz.x, sxyz.y, sxyz.z, c.x);
 		a = a * cyxxy * czzyz;
 
@@ -277,13 +276,13 @@ namespace Mathematics
 		b = syxxy * szzyz * b;
 
 		//float4 c = float4(1.0f, -1.0f, -1.0f, 1.0f);
-		float4 d =a+b* float4(1.0f, -1.0f, -1.0f, 1.0f);
+		float4 d = a + b * float4(1.0f, -1.0f, -1.0f, 1.0f);
 		//float4(sxyz, c.x) * cyxxy * czzyz + syxxy * szzyz * float4(cxyz, s.x) * float4(1.0f, -1.0f, -1.0f, 1.0f)
 		return quaternion(d
-	/*		s.x * c.y * c.z - s.y * s.z * c.x,
-			s.y * c.x * c.z + s.x * s.z * c.y,
-			s.z * c.x * c.y + s.x * s.y * c.z,
-			c.x * c.y * c.z - s.y * s.z * s.x*/
+			/*		s.x * c.y * c.z - s.y * s.z * c.x,
+					s.y * c.x * c.z + s.x * s.z * c.y,
+					s.z * c.x * c.y + s.x * s.y * c.z,
+					c.x * c.y * c.z - s.y * s.z * s.x*/
 		);
 	}
 
@@ -376,11 +375,19 @@ namespace Mathematics
 		return quaternion(math::select(float4(0.0f, 0.0f, 0.0f, 1.0f), quaternion(float3x3(t, math::cross(forward, t), forward)).value, accept));
 	}
 
-	quaternion quaternion::normalizesafe(quaternion q)
+
+
+	quaternion quaternion::normalizesafe(const quaternion& q)
 	{
-		float4 x = q.value;
+		float mag = std::sqrt(dot(q, q));
+		if (mag < math::Epsilon)
+			return quaternion::identity;
+		else
+			return q / mag;
+
+	/*	float4 x = q.value;
 		float len = math::dot(x, x);
-		return quaternion(math::select(identity.value, x * math::rsqrt(len), len > math::PI));
+		return quaternion(math::select(identity.value, x * math::rsqrt(len), len > math::PI));*/
 	}
 
 	quaternion quaternion::normalizesafe(quaternion q, quaternion defaultvalue)
@@ -390,8 +397,115 @@ namespace Mathematics
 		return quaternion(math::select(defaultvalue.value, x * math::rsqrt(len), len > math::PI));
 	}
 
-	float3 quaternion::Positive(float3 euler)
+	float3 quaternion::QuaternionToEuler(const quaternion& quaternion)
 	{
+		return MatrixToEuler(QuaternionToMatrix(quaternion));
+	}
+
+	float3x3 quaternion::QuaternionToMatrix(const quaternion& quaternion)
+	{
+		float3x3 m;
+		float4 q = quaternion.value;
+		float x = q.x * 2.0F;
+		float y = q.y * 2.0F;
+		float z = q.z * 2.0F;
+		float xx = q.x * x;
+		float yy = q.y * y;
+		float zz = q.z * z;
+		float xy = q.x * y;
+		float xz = q.x * z;
+		float yz = q.y * z;
+		float wx = q.w * x;
+		float wy = q.w * y;
+		float wz = q.w * z;
+
+		// Calculate 3x3 matrix from orthonormal basis
+		m.c0.x = 1.0f - (yy + zz);
+		m.c1.x = xy + wz;
+		m.c2.x = xz - wy;
+
+		m.c0.y = xy - wz;
+		m.c1.y = 1.0f - (xx + zz);
+		m.c2.y = yz + wx;
+
+		m.c0.z = xz + wy;
+		m.c1.z = yz - wx;
+		m.c2.z = 1.0f - (xx + yy);
+
+		return m;
+	}
+
+
+	/// This is YXZ euler conversion
+	float3 quaternion::MatrixToEuler(const float3x3& matrix)
+	{
+		// from http://www.geometrictools.com/Documentation/EulerAngles.pdf
+		float3 v(0);
+		// YXZ order
+		if (matrix[1][2] < 0.999F) // some fudge for imprecision
+		{
+			if (matrix[1][2] > -0.999F) // some fudge for imprecision
+			{
+				v.x = asin(-matrix[1][2]);
+				v.y = atan2(matrix[0][2], matrix[2][2]);
+				v.z = atan2(matrix[1][0], matrix[1][1]);
+				auto a = v.x;
+				auto b = v.x;
+				auto c = v.x;
+				MakeRadianPositive(v);
+				auto d = v.x;
+				auto e = v.x;
+				auto f = v.x;
+			}
+			else
+			{
+				// WARNING.  Not unique.  YA - ZA = atan2(r01,r00)
+				v.x = math::PI * 0.5F;// kPI * 0.5F;
+				v.y = math::atan2(matrix[0][1], matrix[0][0]);
+				v.z = 0.0F;
+				MakeRadianPositive(v);
+			}
+		}
+		else
+		{
+			// WARNING.  Not unique.  YA + ZA = atan2(-r01,r00)
+			v.x = -math::PI * 0.5F;//kPI * 0.5F;
+			v.y = atan2(-matrix[0][1], matrix[0][0]);
+			v.z = 0.0F;
+			MakeRadianPositive(v);
+		}
+		return v;
+	}
+
+	float3x3 quaternion::EulerToMatrix(const float3& v)
+	{
+		float cx = cos(v.x);
+		float sx = sin(v.x);
+		float cy = cos(v.y);
+		float sy = sin(v.y);
+		float cz = cos(v.z);
+		float sz = sin(v.z);
+
+		float3x3 matrix;
+		matrix[0][0] = cy * cz + sx * sy * sz;
+		matrix[0][1] = cz * sx * sy - cy * sz;
+		matrix[0][2] = cx * sy;
+
+		matrix[1][0] = cx * sz;
+		matrix[1][1] = cx * cz;
+		matrix[1][2] = -sx;
+
+		matrix[2][0] = -cz * sy + cy * sx * sz;
+		matrix[2][1] = cy * cz * sx + sy * sz;
+		matrix[2][2] = cx * cy;
+		return matrix;
+	}
+
+
+	float3 quaternion::MakeDegreePositive(float3 euler)
+	{
+		/*float num = -0.005729578f;
+		float num2 = 360 + num;*/
 		float negativeFlip = -0.0001f * math::Rad2Deg;
 		float positiveFlip = 360.0f + negativeFlip;
 
@@ -420,82 +534,7 @@ namespace Mathematics
 	}
 
 
-	float3 quaternion::QuaternionToEuler(const quaternion& quaternion)
-	{
-		float3x3 m(0);
-		return MatrixToEuler(QuaternionToMatrix(quaternion, m));
-	}
-
-	float3x3 quaternion::QuaternionToMatrix(const quaternion& quaternion, float3x3& mm)
-	{
-		float3x3 m(0);
-		float4 q = quaternion.value;
-		float x = q.x * 2.0F;
-		float y = q.y * 2.0F;
-		float z = q.z * 2.0F;
-		float xx = q.x * x;
-		float yy = q.y * y;
-		float zz = q.z * z;
-		float xy = q.x * y;
-		float xz = q.x * z;
-		float yz = q.y * z;
-		float wx = q.w * x;
-		float wy = q.w * y;
-		float wz = q.w * z;
-
-		// Calculate 3x3 matrix from orthonormal basis
-		m.c0.x = 1.0f - (yy + zz);
-		m.c0.y = xy + wz;
-		m.c0.z = xz - wy;
-
-		m.c1.x = xy - wz;
-		m.c1.y = 1.0f - (xx + zz);
-		m.c1.z = yz + wx;
-
-		m.c2.x = xz + wy;
-		m.c2.y = yz - wx;
-		m.c2.z = 1.0f - (xx + yy);
-		return m;
-	}
-
-
-	/// This is YXZ euler conversion
-	float3 quaternion::MatrixToEuler(const float3x3& matrix)
-	{
-		// from http://www.geometrictools.com/Documentation/EulerAngles.pdf
-		float3 v(0);
-		// YXZ order
-		if (matrix[1][2] < 0.999F) // some fudge for imprecision
-		{
-			if (matrix[1][2] > -0.999F) // some fudge for imprecision
-			{
-				v.x = asin(-matrix[1][2]);
-				v.y = atan2(matrix[0][2], matrix[2][2]);
-				v.z = atan2(matrix[1][0], matrix[1][1]);
-				MakePositive(v);
-			}
-			else
-			{
-				// WARNING.  Not unique.  YA - ZA = atan2(r01,r00)
-				v.x = kPI * 0.5F;
-				v.y = atan2(matrix[0][1], matrix[0][0]);
-				v.z = 0.0F;
-				MakePositive(v);
-			}
-		}
-		else
-		{
-			// WARNING.  Not unique.  YA + ZA = atan2(-r01,r00)
-			v.x = -kPI * 0.5F;
-			v.y = atan2(-matrix[0][1], matrix[0][0]);
-			v.z = 0.0F;
-			MakePositive(v);
-		}
-		return v;
-	}
-
-
-	void quaternion::MakePositive(float3& euler)
+	void quaternion::MakeRadianPositive(float3& euler)
 	{
 		const float negativeFlip = -0.0001F;
 		const float positiveFlip = (kPI * 2.0F) - 0.0001F;
